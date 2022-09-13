@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """Tarjan's algorithm for maximal strongly connected components.
 
 We provide two versions of the algorithm for different graph
@@ -65,7 +67,7 @@ def get_sccs_adjacency_dict(adjacency_dict):
     return result
 
 
-class StronglyConnectedComponentComputation:
+class StronglyConnectedComponentComputation(object):
     def __init__(self, unweighted_graph):
         self.graph = unweighted_graph
         self.BEGIN, self.CONTINUE, self.RETURN = 0, 1, 2 # "recursion" handling

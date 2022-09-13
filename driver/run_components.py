@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+
+from __future__ import print_function
+
 import errno
 import logging
 import os.path
@@ -11,7 +15,7 @@ from . import returncodes
 from . import util
 from .plan_manager import PlanManager
 
-# TODO: We might want to turn translate into a module and call it with "python3 -m translate".
+# TODO: We might want to turn translate into a module and call it with "python -m translate".
 REL_TRANSLATE_PATH = os.path.join("translate", "translate.py")
 if os.name == "posix":
     REL_PREPROCESS_PATH = "preprocess"
@@ -23,6 +27,7 @@ elif os.name == "nt":
     VALIDATE = "validate.exe"
 else:
     returncodes.exit_with_driver_unsupported_error("Unsupported OS: " + os.name)
+
 
 def get_executable(build, rel_path):
     # First, consider 'build' to be a path directly to the binaries.
@@ -50,7 +55,7 @@ def get_executable(build, rel_path):
 
 
 def run_translate(args):
-    logging.info("Running translator.")
+    # logging.info("Running translator.")
     time_limit = limits.get_time_limit(
         args.translate_time_limit, args.overall_time_limit)
     memory_limit = limits.get_memory_limit(
@@ -96,7 +101,7 @@ def run_translate(args):
 
 
 def run_preprocess(args):
-    logging.info("Running preprocessor (%s)." % args.build)
+    # logging.info("Running preprocessor (%s)." % args.build)
     time_limit = limits.get_time_limit(
         args.preprocess_time_limit, args.overall_time_limit)
     memory_limit = limits.get_memory_limit(
@@ -110,14 +115,13 @@ def run_preprocess(args):
             time_limit=time_limit,
             memory_limit=memory_limit)
     except subprocess.CalledProcessError as err:
-        assert err.returncode >= 10 or err.returncode < 0, "got returncode < 10: {}".format(
-            err.returncode)
+        assert err.returncode >= 10 or err.returncode < 0, "got returncode < 10: {}".format(err.returncode)
         return (err.returncode, False)
     return (0, True)
 
 
 def run_search(args):
-    logging.info("Running search (%s)." % args.build)
+    # logging.info("Running search (%s)." % args.build)
     time_limit = limits.get_time_limit(
         args.search_time_limit, args.overall_time_limit)
     memory_limit = limits.get_memory_limit(

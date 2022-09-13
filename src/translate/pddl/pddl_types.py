@@ -17,7 +17,7 @@ def _get_type_predicate_name(type_name):
     return "type@%s" % type_name
 
 
-class Type:
+class Type(object):
     def __init__(self, name, basetype_name=None):
         self.name = name
         self.basetype_name = basetype_name
@@ -32,7 +32,7 @@ class Type:
         return _get_type_predicate_name(self.name)
 
 
-class TypedObject:
+class TypedObject(object):
     def __init__(self, name, type_name):
         self.name = name
         self.type_name = type_name

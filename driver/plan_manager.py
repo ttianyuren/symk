@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+
+from __future__ import print_function
+
 import itertools
 import os
 import os.path
@@ -30,7 +34,7 @@ def _parse_plan(plan_filename):
         return None, None
 
 
-class PlanManager:
+class PlanManager(object):
     def __init__(self, plan_prefix, portfolio_bound=None, single_plan=False):
         self._plan_prefix = plan_prefix
         self._plan_costs = []

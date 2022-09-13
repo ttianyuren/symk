@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+from __future__ import print_function
+
 import logging
 import os
 import sys
@@ -7,7 +10,7 @@ from . import aliases
 from . import arguments
 from . import cleanup
 from . import run_components
-from . import __version__
+
 
 def remove_plan_folder():
     plan_dir = "found_plans"
@@ -15,17 +18,16 @@ def remove_plan_folder():
         shutil.rmtree(plan_dir)
     os.makedirs(plan_dir)
 
+
 def main():
     remove_plan_folder()
-    args = arguments.parse_args()
+    args = arguments.parse_args(['domain.pddl', 'problem.pddl',
+                                 '--search', 'symk-bd(plan_selection=top_k(num_plans=3))'])
+    # args = arguments.parse_args()
     logging.basicConfig(level=getattr(logging, args.log_level.upper()),
                         format="%(levelname)-8s %(message)s",
                         stream=sys.stdout)
     logging.debug("processed args: %s" % args)
-
-    if args.version:
-        print(__version__)
-        sys.exit()
 
     if args.show_aliases:
         aliases.show_aliases()
@@ -50,8 +52,8 @@ def main():
             (exitcode, continue_execution) = run_components.run_validate(args)
         else:
             assert False, "Error: unhandled component: {}".format(component)
-        print("{component} exit code: {exitcode}".format(**locals()))
         print()
+        print("{component} exit code: {exitcode}".format(**locals()))
         if not continue_execution:
             print("Driver aborting after {}".format(component))
             break

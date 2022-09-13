@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 SAS_FILE_VERSION = 3
 
 DEBUG = False
@@ -322,7 +324,7 @@ class SASOperator:
 
         variables.validate_condition(self.prevail)
         assert self.pre_post == self._canonical_pre_post(self.pre_post)
-        prevail_vars = {var for (var, value) in self.prevail}
+        prevail_vars = set(var for (var, value) in self.prevail)
         pre_values = {}
         for var, pre, post, cond in self.pre_post:
             variables.validate_condition(cond)
